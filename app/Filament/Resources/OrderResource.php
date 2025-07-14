@@ -95,9 +95,7 @@ class OrderResource extends Resource
                                             $set('change_amount', 0);
                                             $set('paid_amount', $get('total_price'));
                                         }
-
                                         
-
                                     })
                                     ->afterStateHydrated(function (Forms\Set $set, Forms\Get $get, $state) {
                                         $paymentMethod = PaymentMethod::find($state);
@@ -130,10 +128,6 @@ class OrderResource extends Resource
                             ])
                         ]),
                         
-               
-                
-                
-                
             ]);
     }
 
@@ -158,8 +152,8 @@ class OrderResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_by')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('updated_by')
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('updated_by')
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -173,7 +167,8 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make()->label(''),
+                // Tables\Actions\DeleteAction::make()->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -194,7 +189,8 @@ class OrderResource extends Resource
         return [
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
-            'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'view' => Pages\ViewOrder::route('/{record}'),
+            // 'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
 
@@ -289,4 +285,6 @@ class OrderResource extends Resource
         $exchangePaid = $paidAmount - $totalPrice;
         $set('change_amount', $exchangePaid);
     }
+
+
 };
